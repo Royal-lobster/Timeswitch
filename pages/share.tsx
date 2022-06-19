@@ -1,44 +1,123 @@
-import { Countdown } from './../components/Countdown';
-import React, { useMemo } from 'react';
+import { Countdown } from '../components/share/Countdown';
+import React, { useEffect, useMemo } from 'react';
 import { decode } from 'js-base64';
 import { useRouter } from 'next/router';
 import PageHeading from '../components/layout/PageHeading';
-import { Box, Center, Text } from '@mantine/core';
-import useCountdown from '../hooks/useCountdown';
+import { Box, createStyles, Group, Stack, Text, Title } from '@mantine/core';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import TimezonesList from '../components/share/TimezonesList';
 dayjs.extend(timezone);
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
 
+interface ShareData {
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  creatorTimezone: string;
+  timezones: string[];
+}
+
+const useStyles = createStyles((theme) => ({
+  alignmentLayout: {
+    width: '100%',
+    margin: '0 auto',
+  },
+  title: {
+    paddingBottom: '10px',
+    textDecoration: 'underline',
+    textDecorationColor: theme.colors.yellow[7],
+    textDecorationStyle: 'solid',
+    textUnderlineOffset: '3px',
+  },
+  description: {
+    padding: '20px',
+    backgroundColor: theme.colors.gray[9],
+    borderRadius: '4px',
+  },
+  startsOnDateTime: {
+    fontWeight: 'bold',
+    color: theme.colors.yellow[7],
+    textDecoration: 'underline',
+    textDecorationColor: theme.colors.yellow[7],
+    textDecorationStyle: 'solid',
+    textUnderlineOffset: '3px',
+    padding: '0px 5px',
+  },
+}));
+
 const Share = () => {
   const router = useRouter();
+  const { classes } = useStyles();
   const { data: encodedData } = router.query;
+  const [countdownTimezone, setCountdownTimezone] = React.useState('');
+  const [countdownDateTime, setCountdownDateTime] = React.useState('');
 
-  const convertedDateTime = useMemo(() => {
+  const data = useMemo(() => {
     const decodedData = decode(encodedData as string);
-    const data = JSON.parse(decodedData);
+    const data = JSON.parse(decodedData) as ShareData;
+    return data;
+  }, [encodedData]);
 
+  const creatorDateTime = useMemo(() => {
     const date = dayjs(data.date).format('YYYY-MM-DD');
     const time = dayjs(data.time).format('hh:mm');
-    let creatorDateTime = `${date} ${time}`;
-    const creatorDateTimeWithTimezone = dayjs.tz(creatorDateTime, data.creatorTimezone);
+    return dayjs.tz(`${date} ${time}`, data.creatorTimezone);
+  }, [data]);
 
-    const viewerTimezone = dayjs.tz.guess();
-    const timezoneConverted = creatorDateTimeWithTimezone.tz(viewerTimezone);
-    const viewerDateTime = timezoneConverted.format('MMMM DD, YYYY hh:mm:ss');
+  const isStackMode = useMemo(() => {
+    return data.timezones && data.description.length < 120;
+  }, [data]);
 
-    return viewerDateTime;
-  }, [encodedData]);
+  useEffect(() => {
+    let viewerTimezone = dayjs.tz.guess();
+    const timezoneConverted = creatorDateTime.tz(countdownTimezone || viewerTimezone);
+    setCountdownDateTime(timezoneConverted.format('MMMM DD, YYYY hh:mm:ss'));
+  }, [countdownTimezone]);
 
   return (
     <Box>
       <PageHeading title="View" />
-      <Center>
-        <Countdown dateTime={convertedDateTime} />
-      </Center>
+      <Group
+        align="start"
+        className={classes.alignmentLayout}
+        sx={{
+          flexDirection: isStackMode ? 'column' : 'row',
+          maxWidth: isStackMode ? '700px' : 'unset',
+        }}
+      >
+        <Stack sx={{ flex: 1, width: '100%' }}>
+          <Title className={classes.title}>{data.title}</Title>
+          <Text className={classes.description}>{data.description}</Text>
+          <Text>
+            Event starts on
+            <span className={classes.startsOnDateTime}>
+              {dayjs.tz(creatorDateTime, dayjs.tz.guess()).format('DD MMM YYYY')}
+            </span>{' '}
+            at{' '}
+            <span className={classes.startsOnDateTime}>
+              {dayjs.tz(creatorDateTime, dayjs.tz.guess()).format('hh:mm A')}
+            </span>{' '}
+            in your local timezone
+          </Text>
+        </Stack>
+        <Stack sx={{ flex: 1 }}>
+          <Countdown
+            dateTime={countdownDateTime}
+            countdownTimezone={countdownTimezone}
+            setCountdownTimezone={setCountdownTimezone}
+          />
+          <TimezonesList
+            timezones={data.timezones}
+            creatorDateTime={creatorDateTime}
+            setCountdownTimezone={setCountdownTimezone}
+          />
+        </Stack>
+      </Group>
     </Box>
   );
 };
