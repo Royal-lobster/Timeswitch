@@ -18,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     backgroundColor: theme.colors.gray[9],
     borderRadius: '4px',
-    width: 'min(110px, 20vw)',
+    width: 'min(110px, calc(100% / 4 - 12px))',
     overflow: 'hidden',
   },
   digits: {

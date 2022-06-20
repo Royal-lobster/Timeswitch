@@ -26,6 +26,10 @@ const useStyles = createStyles((theme) => ({
   alignmentLayout: {
     width: '100%',
     margin: '0 auto',
+
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+      flexDirection: 'column',
+    },
   },
   title: {
     paddingBottom: '10px',

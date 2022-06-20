@@ -16,6 +16,7 @@ const useStyles = createStyles((theme) => ({
     maxWidth: theme.other.appMaxWidth,
     margin: '40px auto 0 auto',
     width: '100%',
+    padding: '20px',
   },
   footerWrapper: {
     marginTop: 'auto',
