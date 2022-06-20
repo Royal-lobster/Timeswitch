@@ -54,8 +54,6 @@ const Share = () => {
   const router = useRouter();
   const { classes } = useStyles();
   const { data: encodedData } = router.query;
-  const [countdownTimezone, setCountdownTimezone] = React.useState('');
-  const [countdownDateTime, setCountdownDateTime] = React.useState('');
 
   const data = useMemo(() => {
     const decodedData = decode(encodedData as string);
@@ -69,15 +67,15 @@ const Share = () => {
     return dayjs.tz(`${date} ${time}`, data.creatorTimezone);
   }, [data]);
 
+  const viewerDateTime = useMemo(() => {
+    const viewerTimezone = dayjs.tz.guess();
+    const timezoneConverted = creatorDateTime.tz(viewerTimezone);
+    return timezoneConverted.format('MMMM DD, YYYY hh:mm:ss');
+  }, [creatorDateTime]);
+
   const isStackMode = useMemo(() => {
     return data.timezones && data.description.length < 120;
   }, [data]);
-
-  useEffect(() => {
-    let viewerTimezone = dayjs.tz.guess();
-    const timezoneConverted = creatorDateTime.tz(countdownTimezone || viewerTimezone);
-    setCountdownDateTime(timezoneConverted.format('MMMM DD, YYYY hh:mm:ss'));
-  }, [countdownTimezone]);
 
   return (
     <Box>
@@ -106,16 +104,8 @@ const Share = () => {
           </Text>
         </Stack>
         <Stack sx={{ flex: 1 }}>
-          <Countdown
-            dateTime={countdownDateTime}
-            countdownTimezone={countdownTimezone}
-            setCountdownTimezone={setCountdownTimezone}
-          />
-          <TimezonesList
-            timezones={data.timezones}
-            creatorDateTime={creatorDateTime}
-            setCountdownTimezone={setCountdownTimezone}
-          />
+          <Countdown dateTime={viewerDateTime} />
+          <TimezonesList timezones={data.timezones} creatorDateTime={creatorDateTime} />
         </Stack>
       </Group>
     </Box>

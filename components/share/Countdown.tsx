@@ -1,13 +1,10 @@
-import { Box, createStyles, Group, Stack, Text } from '@mantine/core';
-import React, { useEffect, useMemo } from 'react';
+import { Box, createStyles, Group, Stack, Text, Title } from '@mantine/core';
+import React from 'react';
 import useCountdown from '../../hooks/useCountdown';
 import dayjs from 'dayjs';
-import { CountdownTitle } from './CountdownTitle';
 
 interface CountdownProps {
   dateTime: string;
-  countdownTimezone: string;
-  setCountdownTimezone: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -21,7 +18,7 @@ const useStyles = createStyles((theme) => ({
     justifyContent: 'center',
     backgroundColor: theme.colors.gray[9],
     borderRadius: '4px',
-    width: 'min(100px, 20vw)',
+    width: 'min(110px, 20vw)',
     overflow: 'hidden',
   },
   digits: {
@@ -44,33 +41,14 @@ const useStyles = createStyles((theme) => ({
 }));
 
 const padDigits = (num: number) => num.toString().padStart(2, '0');
-export function Countdown({ dateTime, countdownTimezone, setCountdownTimezone }: CountdownProps) {
+export function Countdown({ dateTime }: CountdownProps) {
   const { classes } = useStyles();
   const { days, hours, minutes, seconds } = useCountdown(dateTime);
-  const viewerLocation = useMemo(() => dayjs.tz.guess(), []);
-  const [countdownAnimation, setCountdownAnimation] = React.useState(false);
-
-  useEffect(() => {
-    setCountdownAnimation(true);
-
-    const clearAnimation = setTimeout(() => {
-      setCountdownAnimation(false);
-    }, 200);
-
-    return () => clearTimeout(clearAnimation);
-  }, [countdownTimezone]);
 
   return (
     <Stack>
-      <CountdownTitle
-        countdownTimezone={countdownTimezone}
-        viewerLocation={viewerLocation}
-        setCountdownTimezone={setCountdownTimezone}
-      />
-      <Group
-        className={classes.countdownBox}
-        sx={countdownAnimation ? { transform: 'scale(0.9)' } : { transform: 'scale(1)' }}
-      >
+      <Title order={2}>Countdown</Title>
+      <Group className={classes.countdownBox}>
         <Box className={classes.countdownUnit}>
           <Text className={classes.digits}>{padDigits(days)}</Text>
           <Text className={classes.digitsMarker}>{days === 1 ? 'Day' : 'Days'}</Text>

@@ -8,7 +8,6 @@ import { Cross1Icon } from '@modulz/radix-icons';
 interface TimezonesListProps {
   timezones: string[];
   creatorDateTime: dayjs.Dayjs;
-  setCountdownTimezone: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -23,12 +22,6 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     border: `1px solid ${theme.colors.gray[8]}`,
-    cursor: 'pointer',
-
-    '&:hover': {
-      borderColor: theme.colors.yellow[5],
-      backgroundColor: '#ffffff05',
-    },
   },
   TimezoneDateTimeWrapper: {
     padding: '10px',
@@ -55,11 +48,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const TimezonesList = ({
-  timezones,
-  creatorDateTime,
-  setCountdownTimezone,
-}: TimezonesListProps) => {
+const TimezonesList = ({ timezones, creatorDateTime }: TimezonesListProps) => {
   const { classes } = useStyles();
   if (!timezones.length) return null;
   return (
@@ -67,11 +56,7 @@ const TimezonesList = ({
       <Title order={2}>Timezones</Title>
       <Box className={classes.TimezoneListsContainer}>
         {timezones.map((timezone, index) => (
-          <Box
-            className={classes.Timezone}
-            key={index}
-            onClick={() => setCountdownTimezone(timezone)}
-          >
+          <Box className={classes.Timezone} key={index}>
             <Stack spacing={4} className={classes.TimezoneDateTimeWrapper}>
               <Text className={classes.TimezoneDate}>
                 {creatorDateTime.tz(timezone).format('DD MMMM YYYY')}
