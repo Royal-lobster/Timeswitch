@@ -14,7 +14,7 @@ const useStyles = createStyles((theme) => ({
   },
   contentWrapper: {
     maxWidth: theme.other.appMaxWidth,
-    margin: '40px auto 0 auto',
+    margin: '10px auto 0 auto',
     width: '100%',
     padding: '20px',
   },

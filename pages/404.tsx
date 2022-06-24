@@ -17,7 +17,7 @@ const useStyles = createStyles((theme) => ({
   },
   titleSpan: {
     fontFamily: 'pacifico',
-    color: theme.colors.yellow[5],
+    color: theme.colors[theme.primaryColor][5],
     fontSize: 'min(100px, 12vw)',
   },
   message: {

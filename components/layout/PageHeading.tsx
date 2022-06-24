@@ -17,10 +17,11 @@ const useStyles = createStyles((theme) => ({
     margin: '40px auto',
     cursor: 'pointer',
     textAlign: 'center',
+    justifyContent: 'center',
   },
   pageHeadingSpan: {
     fontFamily: 'pacifico',
-    color: theme.colors.yellow[7],
+    color: theme.colors[theme.primaryColor][7],
   },
 }));
 const PageHeading = ({ title }: pageHeadingProps) => {

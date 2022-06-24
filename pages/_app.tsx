@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AppProps } from 'next/app';
 import { getCookie, setCookies } from 'cookies-next';
 import Head from 'next/head';
-import { MantineProvider, ColorScheme } from '@mantine/core';
+import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import Layout from '../components/layout';
 
@@ -35,23 +35,25 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         />
       </Head>
 
-      <MantineProvider
-        theme={{
-          colorScheme: 'dark',
-          primaryColor: 'yellow',
-          other: {
-            appMaxWidth: '1000px',
-          },
-        }}
-        withGlobalStyles
-        withNormalizeCSS
-      >
-        <NotificationsProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </NotificationsProvider>
-      </MantineProvider>
+      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <MantineProvider
+          theme={{
+            primaryColor: 'green',
+            colorScheme,
+            other: {
+              appMaxWidth: '1000px',
+            },
+          }}
+          withGlobalStyles
+          withNormalizeCSS
+        >
+          <NotificationsProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </NotificationsProvider>
+        </MantineProvider>
+      </ColorSchemeProvider>
     </>
   );
 }

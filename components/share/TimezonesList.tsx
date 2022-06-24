@@ -21,7 +21,9 @@ const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    border: `1px solid ${theme.colors.gray[8]}`,
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: theme.colorScheme === 'light' ? theme.colors.gray[5] : theme.colors.gray[8],
   },
   TimezoneDateTimeWrapper: {
     padding: '10px',
@@ -34,12 +36,12 @@ const useStyles = createStyles((theme) => ({
     textAlign: 'center',
   },
   TimezoneTime: {
-    color: theme.colors.yellow[6],
+    color: theme.colors[theme.primaryColor][6],
     fontWeight: 'bold',
     textAlign: 'center',
   },
   timezoneNameWrapper: {
-    backgroundColor: theme.colors.gray[9],
+    backgroundColor: theme.colorScheme === 'light' ? theme.colors.gray[3] : theme.colors.gray[9],
     padding: '10px',
     width: '100%',
   },
