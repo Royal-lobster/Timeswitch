@@ -3,7 +3,7 @@ import React, { useEffect, useMemo } from 'react';
 import { decode } from 'js-base64';
 import { useRouter } from 'next/router';
 import PageHeading from '../components/layout/PageHeading';
-import { Box, createStyles, Group, Stack, Text, Title } from '@mantine/core';
+import { Box, createStyles, Group, Stack, Text, Title, useMantineTheme } from '@mantine/core';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
@@ -20,6 +20,7 @@ interface ShareData {
   time: string;
   creatorTimezone: string;
   timezones: string[];
+  primaryColor: string;
 }
 
 const useStyles = createStyles((theme) => ({
@@ -54,14 +55,21 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Share = () => {
+interface SharePageProps {
+  setPrimaryColor: (color: string) => void;
+}
+
+const Share = ({ setPrimaryColor }: SharePageProps) => {
   const router = useRouter();
   const { classes } = useStyles();
   const { data: encodedData } = router.query;
+  const theme = useMantineTheme();
 
   const data = useMemo(() => {
     const decodedData = decode(encodedData as string);
     const data = JSON.parse(decodedData) as ShareData;
+    if (data.primaryColor && Object.keys(theme.colors).includes(data.primaryColor))
+      setPrimaryColor(data.primaryColor);
     return data;
   }, [encodedData]);
 
