@@ -39,7 +39,12 @@ export function ThemeSwitch() {
       <div className={classes.root}>
         <SunIcon className={cx(classes.icon, classes.iconLight)} />
         <MoonIcon className={cx(classes.icon, classes.iconDark)} />
-        <Switch checked={colorScheme === 'dark'} onChange={() => toggleColorScheme()} size="md" />
+        <Switch
+          radius={0}
+          checked={colorScheme === 'dark'}
+          onChange={() => toggleColorScheme()}
+          size="md"
+        />
       </div>
     </Group>
   );

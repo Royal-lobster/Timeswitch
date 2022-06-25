@@ -2,7 +2,9 @@ import {
   Anchor,
   Box,
   Button,
+  ColorSwatch,
   createStyles,
+  Group,
   MultiSelect,
   Select,
   Stack,
@@ -10,6 +12,8 @@ import {
   Text,
   Textarea,
   TextInput,
+  ThemeIcon,
+  useMantineTheme,
 } from '@mantine/core';
 import { DatePicker, TimeInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
@@ -21,6 +25,7 @@ import { useClipboard } from '@mantine/hooks';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { PaperPlaneIcon } from '@modulz/radix-icons';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -36,10 +41,19 @@ const useStyles = createStyles((theme) => ({
       flexDirection: 'column',
     },
   },
+  FormSubmitBtn: {
+    maxWidth: 'fit-content',
+  },
 }));
-const Form = () => {
+
+interface CreateFormProps {
+  setPrimaryColor: (color: string) => void;
+}
+
+const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
   const { classes } = useStyles();
   const clipboard = useClipboard();
+  const theme = useMantineTheme();
 
   const form = useForm({
     initialValues: {
@@ -67,6 +81,7 @@ const Form = () => {
   const handleFormSubmit = async (values: any) => {
     const data = {
       ...values,
+      primaryColor: theme.primaryColor,
       creatorTimezone: dayjs.tz.guess().replace('Calcutta', 'Kolkata'),
     };
     console.log(data);
@@ -108,6 +123,31 @@ const Form = () => {
     }
   };
 
+  const swatches = Object.keys(theme.colors)
+    .filter((c) => c !== 'dark')
+    .reverse()
+    .map((color) => (
+      <ColorSwatch
+        onClick={() => setPrimaryColor(color)}
+        key={color}
+        radius={0}
+        sx={{
+          cursor: 'pointer',
+        }}
+        color={theme.colors[color][6]}
+      >
+        {theme.primaryColor === color ? (
+          <Box
+            sx={{
+              width: '60%',
+              height: '60%',
+              backgroundColor: theme.colors[color][9],
+            }}
+          />
+        ) : null}
+      </ColorSwatch>
+    ));
+
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <Stack className={classes.FormContainer}>
@@ -147,15 +187,23 @@ const Form = () => {
               format="12"
             />
           </Stack>
-          <Textarea
-            {...form.getInputProps('description')}
-            sx={{ flex: 1 }}
-            label="description"
-            placeholder="Enter description of the event"
-            size="md"
-            radius={0}
-            minRows={8}
-          />
+          <Stack>
+            <Textarea
+              {...form.getInputProps('description')}
+              sx={{ flex: 1, minWidth: '30vw' }}
+              label="Description"
+              placeholder="Enter description of the event"
+              size="md"
+              radius={0}
+              minRows={8}
+            />
+            <Stack spacing={2} sx={{ maxWidth: '500px' }}>
+              <label>Color Scheme</label>
+              <Group mt={3} spacing={10}>
+                {swatches}
+              </Group>
+            </Stack>
+          </Stack>
         </Box>
         <MultiSelect
           {...form.getInputProps('timezones')}
@@ -173,12 +221,18 @@ const Form = () => {
             },
           }}
         />
-        <Button type="submit" size="md" radius={0}>
-          Create Form
+        <Button
+          type="submit"
+          className={classes.FormSubmitBtn}
+          rightIcon={<PaperPlaneIcon />}
+          size="md"
+          radius={0}
+        >
+          Create Event
         </Button>
       </Stack>
     </form>
   );
 };
 
-export default Form;
+export default CreateForm;

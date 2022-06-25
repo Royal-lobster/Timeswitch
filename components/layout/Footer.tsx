@@ -9,7 +9,6 @@ const useStyles = createStyles((theme) => ({
     margin: '20px auto',
     padding: '20px 0',
     backgroundColor: theme.colorScheme === 'light' ? theme.colors.gray[1] : theme.colors.gray[9],
-    borderRadius: '10px',
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       margin: '0 auto',
       borderRadius: '0',

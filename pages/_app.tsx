@@ -16,6 +16,7 @@ declare module '@mantine/core' {
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+  const [primaryColor, setPrimaryColor] = useState<string>('green');
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
@@ -38,7 +39,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider
           theme={{
-            primaryColor: 'green',
+            primaryColor,
             colorScheme,
             other: {
               appMaxWidth: '1000px',
@@ -49,7 +50,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         >
           <NotificationsProvider>
             <Layout>
-              <Component {...pageProps} />
+              <Component setPrimaryColor={setPrimaryColor} {...pageProps} />
             </Layout>
           </NotificationsProvider>
         </MantineProvider>

@@ -1,9 +1,8 @@
-import { ActionIcon, Box, createStyles, Group, Stack, Text, Title } from '@mantine/core';
+import { Box, createStyles, Group, Stack, Text, Title } from '@mantine/core';
 import dayjs from 'dayjs';
 import React from 'react';
 import ct from 'countries-and-timezones';
 import ReactCountryFlag from 'react-country-flag';
-import { Cross1Icon } from '@modulz/radix-icons';
 
 interface TimezonesListProps {
   timezones: string[];

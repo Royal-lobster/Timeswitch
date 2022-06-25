@@ -1,19 +1,17 @@
-import { createStyles, Stack } from '@mantine/core';
+import { Stack } from '@mantine/core';
 import React from 'react';
-import Form from '../components/create/CreateForm';
+import CreateForm from '../components/create/CreateForm';
 import PageHeading from '../components/layout/PageHeading';
 
-const useStyles = createStyles((theme) => ({
-  createContainer: {
-    padding: '20px',
-  },
-}));
-const create = () => {
-  const { classes } = useStyles();
+interface createPageProps {
+  setPrimaryColor: (color: string) => void;
+}
+
+const create = ({ setPrimaryColor }: createPageProps) => {
   return (
-    <Stack className={classes.createContainer}>
+    <Stack>
       <PageHeading title="Create" />
-      <Form />
+      <CreateForm setPrimaryColor={setPrimaryColor} />
     </Stack>
   );
 };
