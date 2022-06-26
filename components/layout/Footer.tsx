@@ -23,7 +23,7 @@ const Footer = () => {
     <Box component="footer" className={classes.footer}>
       <Group sx={{ justifyContent: 'center' }}>
         <Text sx={{ fontWeight: 'bold' }}>
-          Made by <Anchor href="https//srujangurram.me">Srujan</Anchor>
+          Made by <Anchor href="https://srujangurram.me">Srujan</Anchor>
         </Text>
         <ThemeSwitch />
       </Group>
