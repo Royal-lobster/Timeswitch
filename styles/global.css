@@ -1,0 +1,6 @@
+a {
+  color: unset;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-style: dashed;
+}

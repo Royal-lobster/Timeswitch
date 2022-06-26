@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import linkify from 'react-tiny-linkify';
 import PageHeading from '../components/layout/PageHeading';
 import { Countdown } from '../components/share/Countdown';
 import TimezonesList from '../components/share/TimezonesList';
@@ -53,6 +54,7 @@ const useStyles = createStyles((theme) => ({
     padding: '20px',
     backgroundColor: theme.colorScheme === 'light' ? theme.colors.gray[1] : theme.colors.gray[9],
     wordBreak: 'break-word',
+    whiteSpace: 'pre-wrap',
   },
   startsOnDateTime: {
     fontWeight: 'bold',
@@ -93,6 +95,8 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
     return parsedData;
   }, [encodedData]);
 
+  const linkedDescription = useMemo(() => linkify(data.description), [data.description]);
+
   const creatorDateTime = useMemo(() => {
     let date = dayjs(data.date).format('YYYY-MM-DD');
     const time = dayjs(data.time).format('HH:mm');
@@ -124,7 +128,7 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
       >
         <Stack sx={{ flex: 1, width: '100%' }}>
           <Title className={classes.title}>{data.title}</Title>
-          <Text className={classes.description}>{data.description}</Text>
+          <Text className={classes.description}>{linkedDescription}</Text>
           <Text>
             Event starts on
             <span className={classes.startsOnDateTime}>

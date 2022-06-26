@@ -2071,6 +2071,11 @@ react-textarea-autosize@^8.3.2:
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
 
+react-tiny-linkify@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-tiny-linkify/-/react-tiny-linkify-1.1.1.tgz#eea70764f119dc4d9bf5a3785dbefc8af140610a"
+  integrity sha512-NlR6HL24ljfb5r44wVkpYSQ03CwAYndVvRVIRFPRr0k3o4QuQBEr53VqaLLg+6WpyfokX01MefhHmqvY0Ajq+w==
+
 react-transition-group@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
