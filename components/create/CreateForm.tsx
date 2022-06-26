@@ -157,7 +157,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
   useEffect(() => {
     setIsMounted(true);
   }, []);
-  if (!isMounted) return false;
+  if (!isMounted) return null;
 
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
