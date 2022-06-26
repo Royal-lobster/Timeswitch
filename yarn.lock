@@ -114,6 +114,11 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
+"@fontsource/pacifico@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@fontsource/pacifico/-/pacifico-4.5.7.tgz#aad3da6e1f37d7706908445096c0d1099dcad94d"
+  integrity sha512-lnbXR1ELzKJBvOAUylNEPHYUX5EmKwitTy8B7z4e4aHLSra1Ed4QxTxm6Tw2ME/OzRHrla4bXDT2hdBkSE6OIQ==
+
 "@humanwhocodes/config-array@^0.9.2":
   version "0.9.5"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.9.5.tgz#2cbaf9a89460da24b5ca6531b8bbfc23e1df50c7"
