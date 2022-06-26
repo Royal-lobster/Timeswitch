@@ -1,7 +1,7 @@
 import { Box, createStyles, Group, ThemeIcon, Title } from '@mantine/core';
-import { TimerIcon } from '@modulz/radix-icons';
 import Link from 'next/link';
 import React from 'react';
+import { RiTimer2Line } from 'react-icons/ri';
 
 interface pageHeadingProps {
   title: string;
@@ -31,7 +31,7 @@ const PageHeading = ({ title }: pageHeadingProps) => {
       <Link href="/">
         <Group className={classes.pageHeading}>
           <ThemeIcon size="xl">
-            <TimerIcon />
+            <RiTimer2Line />
           </ThemeIcon>
           <Title>
             TimeSwitch <span className={classes.pageHeadingSpan}>{title}</span>

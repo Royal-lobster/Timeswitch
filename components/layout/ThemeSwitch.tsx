@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, Switch, Group, useMantineColorScheme } from '@mantine/core';
-import { MoonIcon, SunIcon } from '@modulz/radix-icons';
+import { RiMoonLine, RiSunLine } from 'react-icons/ri';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -37,8 +37,8 @@ export function ThemeSwitch() {
   return (
     <Group position="center">
       <div className={classes.root}>
-        <SunIcon className={cx(classes.icon, classes.iconLight)} />
-        <MoonIcon className={cx(classes.icon, classes.iconDark)} />
+        <RiSunLine className={cx(classes.icon, classes.iconLight)} />
+        <RiMoonLine className={cx(classes.icon, classes.iconDark)} />
         <Switch
           radius={0}
           checked={colorScheme === 'dark'}

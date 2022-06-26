@@ -22,10 +22,10 @@ import { TimezoneItem, TimezoneValue, tzData } from './TimezoneSelect';
 import { encode } from 'js-base64';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import { useClipboard } from '@mantine/hooks';
+import { FaTelegramPlane } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { PaperPlaneIcon } from '@modulz/radix-icons';
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -225,7 +225,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
         <Button
           type="submit"
           className={classes.FormSubmitBtn}
-          rightIcon={<PaperPlaneIcon />}
+          rightIcon={<FaTelegramPlane />}
           size="md"
           radius={0}
         >

@@ -10,6 +10,7 @@ import timezone from 'dayjs/plugin/timezone';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import TimezonesList from '../components/share/TimezonesList';
 import { adjustDateForRecurring } from '../utils/adjustDateForRecurring';
+import SaveToCalendar from '../components/share/SaveToCalendar';
 dayjs.extend(timezone);
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
@@ -133,6 +134,13 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
           <TimezonesList timezones={data.timezones} creatorDateTime={creatorDateTime} />
         </Stack>
       </Group>
+      <SaveToCalendar
+        event={{
+          title: data.title,
+          description: data.description,
+          start: viewerDateTime,
+        }}
+      />
     </Box>
   );
 };
