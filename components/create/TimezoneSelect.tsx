@@ -65,7 +65,6 @@ export const tzData = Object.values(tz.getAllTimezones())
       label = labelMatch[1].replace(/\//g, ' - ');
     }
     return {
-      // select first group of /^[^\/]*\/(.*)$/
       label,
       value: timezone.name,
       group: timezone.name.split('/')[0],

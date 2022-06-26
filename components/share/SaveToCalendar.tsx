@@ -60,7 +60,7 @@ const SaveToCalendar = ({ event }: SaveToCalendarProps) => {
         </Stack>
       </Modal>
 
-      <Button mt={15} leftIcon={<RiCalendar2Line />} onClick={() => setOpened((o) => !o)}>
+      <Button leftIcon={<RiCalendar2Line />} onClick={() => setOpened((o) => !o)}>
         Save to calendar
       </Button>
     </>

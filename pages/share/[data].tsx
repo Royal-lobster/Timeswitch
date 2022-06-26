@@ -6,11 +6,12 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import PageHeading from '../components/layout/PageHeading';
-import { Countdown } from '../components/share/Countdown';
-import TimezonesList from '../components/share/TimezonesList';
-import { adjustDateForRecurring } from '../utils/adjustDateForRecurring';
-import SaveToCalendar from '../components/share/SaveToCalendar';
+import PageHeading from '../../components/layout/PageHeading';
+import { Countdown } from '../../components/share/Countdown';
+import TimezonesList from '../../components/share/TimezonesList';
+import { adjustDateForRecurring } from '../../utils/adjustDateForRecurring';
+import SaveToCalendar from '../../components/share/SaveToCalendar';
+import ShareToSocials from '../../components/share/ShareToSocials';
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
@@ -132,13 +133,16 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
           <TimezonesList timezones={data.timezones} creatorDateTime={creatorDateTime} />
         </Stack>
       </Group>
-      <SaveToCalendar
-        event={{
-          title: data.title,
-          description: data.description,
-          start: viewerDateTime,
-        }}
-      />
+      <Group mt={15}>
+        <SaveToCalendar
+          event={{
+            title: data.title,
+            description: data.description,
+            start: viewerDateTime,
+          }}
+        />
+        <ShareToSocials title={data.title} />
+      </Group>
     </Box>
   );
 };
