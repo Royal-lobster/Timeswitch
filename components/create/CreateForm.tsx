@@ -16,10 +16,10 @@ import {
 } from '@mantine/core';
 import { DatePicker, TimeInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { encode } from 'js-base64';
 import { showNotification, updateNotification } from '@mantine/notifications';
-import { useClipboard } from '@mantine/hooks';
+import { useClipboard, useViewportSize } from '@mantine/hooks';
 import { FaTelegramPlane } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -58,6 +58,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
   const { classes } = useStyles();
   const clipboard = useClipboard();
   const theme = useMantineTheme();
+  const { width } = useViewportSize();
 
   const form = useForm({
     initialValues: {
@@ -152,6 +153,12 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
       </ColorSwatch>
     ));
 
+  const [isMounted, setIsMounted] = React.useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) return false;
+
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <Stack className={classes.FormContainer}>
@@ -188,7 +195,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
               radius={0}
               label="Event Time"
               clearable
-              format="12"
+              format={width > 500 ? '12' : '24'}
             />
           </Stack>
           <Stack>
