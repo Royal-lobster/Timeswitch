@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Modal, Stack } from '@mantine/core';
+import { Button, Modal, Stack } from '@mantine/core';
 import React, { useState } from 'react';
 import { google, outlook, office365, yahoo, ics, CalendarEvent } from 'calendar-link';
 import { RiCalendar2Line } from 'react-icons/ri';
