@@ -99,7 +99,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
       autoClose: false,
       disallowClose: true,
     });
-    const longURL = `${window.location.origin}/share/${dataBase64}`;
+    const longURL = `${window.location.origin}/share?data=${dataBase64}`;
     try {
       const result = await fetch(`https://tinyurl.com/api-create.php?url=${longURL}`);
       const shortURL = await result.text();
