@@ -6,9 +6,11 @@ const useStyles = createStyles((theme) => ({
   footer: {
     textAlign: 'center',
     maxWidth: theme.other.appMaxWidth,
-    margin: '20px auto',
+    margin: '0 auto',
     padding: '20px 0',
-    backgroundColor: theme.colorScheme === 'light' ? theme.colors.gray[1] : theme.colors.gray[9],
+    borderTopWidth: '1px',
+    borderTopStyle: 'solid',
+    borderTopColor: theme.colorScheme === 'light' ? theme.colors.gray[1] : theme.colors.gray[9],
     [`@media (max-width: ${theme.breakpoints.md}px)`]: {
       margin: '0 auto',
       borderRadius: '0',

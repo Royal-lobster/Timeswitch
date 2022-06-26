@@ -9,6 +9,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import TimezonesList from '../components/share/TimezonesList';
+import { adjustDateForRecurring } from '../utils/adjustDateForRecurring';
 dayjs.extend(timezone);
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
@@ -21,6 +22,8 @@ interface ShareData {
   creatorTimezone: string;
   timezones: string[];
   primaryColor: string;
+  isRecurring?: boolean;
+  recurringFrequency?: 'Every Day' | 'Alternate Days' | 'Every Weak' | 'Every Month' | 'Every Year';
 }
 
 const useStyles = createStyles((theme) => ({
@@ -64,25 +67,32 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
   const { classes } = useStyles();
   const { data: encodedData } = router.query;
   const theme = useMantineTheme();
+  const [triggerReCalCreatorTime, setTriggerReCalCreatorTime] = React.useState(false);
 
   const data = useMemo(() => {
     const decodedData = decode(encodedData as string);
     const data = JSON.parse(decodedData) as ShareData;
     if (data.primaryColor && Object.keys(theme.colors).includes(data.primaryColor))
       setPrimaryColor(data.primaryColor);
+    console.log(data);
     return data;
   }, [encodedData]);
 
   const creatorDateTime = useMemo(() => {
-    const date = dayjs(data.date).format('YYYY-MM-DD');
-    const time = dayjs(data.time).format('hh:mm');
+    let date = dayjs(data.date).format('YYYY-MM-DD');
+    const time = dayjs(data.time).format('HH:mm');
+    console.log(time);
+    if (data.isRecurring) {
+      date = adjustDateForRecurring(date, time, data.recurringFrequency) || date;
+      console.log('RECALCULATED DATE: ', date);
+    }
     return dayjs.tz(`${date} ${time}`, data.creatorTimezone);
-  }, [data]);
+  }, [data, triggerReCalCreatorTime]);
 
   const viewerDateTime = useMemo(() => {
     const viewerTimezone = dayjs.tz.guess();
     const timezoneConverted = creatorDateTime.tz(viewerTimezone);
-    return timezoneConverted.format('MMMM DD, YYYY hh:mm:ss');
+    return timezoneConverted.format('MMMM DD, YYYY HH:mm:ss');
   }, [creatorDateTime]);
 
   const isStackMode = useMemo(() => {
@@ -116,7 +126,10 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
           </Text>
         </Stack>
         <Stack sx={{ flex: 1 }}>
-          <Countdown dateTime={viewerDateTime} />
+          <Countdown
+            dateTime={viewerDateTime}
+            setTriggerReCalCreatorTime={setTriggerReCalCreatorTime}
+          />
           <TimezonesList timezones={data.timezones} creatorDateTime={creatorDateTime} />
         </Stack>
       </Group>
