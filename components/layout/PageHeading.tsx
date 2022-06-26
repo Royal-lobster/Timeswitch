@@ -28,7 +28,7 @@ const PageHeading = ({ title }: pageHeadingProps) => {
   const { classes } = useStyles();
   return (
     <Box className={classes.pageHeadingContainer}>
-      <Link href="/">
+      <Link href="/" passHref>
         <Group className={classes.pageHeading}>
           <ThemeIcon size="xl">
             <RiTimer2Line />

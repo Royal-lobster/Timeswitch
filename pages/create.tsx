@@ -7,13 +7,11 @@ interface createPageProps {
   setPrimaryColor: (color: string) => void;
 }
 
-const create = ({ setPrimaryColor }: createPageProps) => {
-  return (
-    <Stack>
-      <PageHeading title="Create" />
-      <CreateForm setPrimaryColor={setPrimaryColor} />
-    </Stack>
-  );
-};
+const create = ({ setPrimaryColor }: createPageProps) => (
+  <Stack>
+    <PageHeading title="Create" />
+    <CreateForm setPrimaryColor={setPrimaryColor} />
+  </Stack>
+);
 
 export default create;

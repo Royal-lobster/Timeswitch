@@ -1,16 +1,17 @@
-import { Countdown } from '../components/share/Countdown';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { decode } from 'js-base64';
 import { useRouter } from 'next/router';
-import PageHeading from '../components/layout/PageHeading';
 import { Box, createStyles, Group, Stack, Text, Title, useMantineTheme } from '@mantine/core';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import PageHeading from '../components/layout/PageHeading';
+import { Countdown } from '../components/share/Countdown';
 import TimezonesList from '../components/share/TimezonesList';
 import { adjustDateForRecurring } from '../utils/adjustDateForRecurring';
 import SaveToCalendar from '../components/share/SaveToCalendar';
+
 dayjs.extend(timezone);
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
@@ -72,21 +73,20 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
 
   const data = useMemo(() => {
     const decodedData = decode(encodedData as string);
-    const data = JSON.parse(decodedData) as ShareData;
-    if (data.primaryColor && Object.keys(theme.colors).includes(data.primaryColor))
-      setPrimaryColor(data.primaryColor);
-    console.log(data);
-    return data;
+    const parsedData = JSON.parse(decodedData) as ShareData;
+    if (parsedData.primaryColor && Object.keys(theme.colors).includes(parsedData.primaryColor)) {
+      setPrimaryColor(parsedData.primaryColor);
+    }
+    return parsedData;
   }, [encodedData]);
 
   const creatorDateTime = useMemo(() => {
     let date = dayjs(data.date).format('YYYY-MM-DD');
     const time = dayjs(data.time).format('HH:mm');
-    console.log(time);
     if (data.isRecurring) {
       date = adjustDateForRecurring(date, time, data.recurringFrequency) || date;
-      console.log('RECALCULATED DATE: ', date);
     }
+
     return dayjs.tz(`${date} ${time}`, data.creatorTimezone);
   }, [data, triggerReCalCreatorTime]);
 
@@ -96,9 +96,7 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
     return timezoneConverted.format('MMMM DD, YYYY HH:mm:ss');
   }, [creatorDateTime]);
 
-  const isStackMode = useMemo(() => {
-    return data.timezones && data.description.length < 120;
-  }, [data]);
+  const isStackMode = useMemo(() => data.timezones && data.description.length < 120, [data]);
 
   return (
     <Box>

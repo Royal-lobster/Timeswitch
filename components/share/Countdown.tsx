@@ -1,6 +1,5 @@
 import { Box, createStyles, Group, Stack, Text, Title } from '@mantine/core';
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import useCountdown from '../../hooks/useCountdown';
 import Confetti from './Confetti';
 

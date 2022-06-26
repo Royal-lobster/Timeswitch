@@ -12,13 +12,11 @@ import {
   Text,
   Textarea,
   TextInput,
-  ThemeIcon,
   useMantineTheme,
 } from '@mantine/core';
 import { DatePicker, TimeInput } from '@mantine/dates';
 import { useForm } from '@mantine/form';
 import React from 'react';
-import { TimezoneItem, TimezoneValue, tzData } from './TimezoneSelect';
 import { encode } from 'js-base64';
 import { showNotification, updateNotification } from '@mantine/notifications';
 import { useClipboard } from '@mantine/hooks';
@@ -26,6 +24,8 @@ import { FaTelegramPlane } from 'react-icons/fa';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { TimezoneItem, TimezoneValue, tzData } from './TimezoneSelect';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
@@ -91,7 +91,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
     showNotification({
       id: 'share-link',
       title: 'Generating Share Link',
-      message: `Please wait while we generate your share link.`,
+      message: 'Please wait while we generate your share link.',
       loading: true,
       autoClose: false,
       disallowClose: true,
@@ -117,7 +117,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
       updateNotification({
         id: 'share-link',
         title: 'Share Link Generated',
-        message: `Link Copied to Clipboard`,
+        message: 'Link Copied to Clipboard',
         autoClose: true,
         disallowClose: false,
       });
@@ -199,7 +199,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
               minRows={8}
             />
             <Stack spacing={2} sx={{ maxWidth: '500px' }}>
-              <label>Color Scheme</label>
+              <Text>Color Scheme</Text>
               <Group mt={3} spacing={10}>
                 {swatches}
               </Group>
