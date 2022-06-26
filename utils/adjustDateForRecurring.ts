@@ -18,12 +18,11 @@ export const adjustDateForRecurring = (
 
   if (currentDate.isAfter(eventDateTime)) {
     const todayDate = dayjs().format('YYYY-MM-DD');
-    const currentTime = dayjs().format('hh:mm');
     const todayEventDateTime = dayjs(`${todayDate} ${time}`);
 
     switch (recurringFrequency) {
       case 'Every Day':
-        if (dayjs(`${todayDate} ${currentTime}`).isAfter(eventDateTime))
+        if (dayjs().isAfter(eventDateTime))
           return todayEventDateTime.add(1, 'day').format('YYYY-MM-DD');
         else return todayEventDateTime.format('YYYY-MM-DD');
 
