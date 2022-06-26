@@ -1,4 +1,5 @@
-import { ActionIcon, Group, Modal } from '@mantine/core';
+import { ActionIcon, Group, Input, Modal, Stack } from '@mantine/core';
+import { useClipboard } from '@mantine/hooks';
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -16,7 +17,8 @@ import {
   WhatsappShareButton,
 } from 'next-share';
 import React, { useEffect, useState } from 'react';
-import { RiShareLine } from 'react-icons/ri';
+import { RiFileCopyLine, RiShareLine } from 'react-icons/ri';
+import { AiOutlineFileDone } from 'react-icons/ai';
 
 interface ShareToSocialsProps {
   title: string;
@@ -25,6 +27,9 @@ interface ShareToSocialsProps {
 const ShareToSocials = ({ title }: ShareToSocialsProps) => {
   const [opened, setOpened] = useState(false);
   const [url, setUrl] = useState('');
+  const clipboard = useClipboard({
+    timeout: 1000,
+  });
 
   useEffect(() => {
     const longURL = window.location.href;
@@ -44,29 +49,46 @@ const ShareToSocials = ({ title }: ShareToSocialsProps) => {
         onClose={() => setOpened(false)}
         title="Share Event"
       >
-        <Group spacing={9}>
-          <TwitterShareButton url={url} title={title}>
-            <TwitterIcon size={32} />
-          </TwitterShareButton>
-          <FacebookShareButton url={url} title={title}>
-            <FacebookIcon size={32} />
-          </FacebookShareButton>
-          <RedditShareButton url={url} title={title}>
-            <RedditIcon size={32} />
-          </RedditShareButton>
-          <TelegramShareButton url={url} title={title}>
-            <TelegramIcon size={32} />
-          </TelegramShareButton>
-          <WhatsappShareButton url={url} title={title} separator=":: ">
-            <WhatsappIcon size={32} />
-          </WhatsappShareButton>
-          <LinkedinShareButton url={url}>
-            <LinkedinIcon size={32} />
-          </LinkedinShareButton>
-          <VKShareButton url={url}>
-            <VKIcon size={32} />
-          </VKShareButton>
-        </Group>
+        <Stack>
+          <Group spacing={9}>
+            <TwitterShareButton url={url} title={title}>
+              <TwitterIcon size={32} />
+            </TwitterShareButton>
+            <FacebookShareButton url={url} title={title}>
+              <FacebookIcon size={32} />
+            </FacebookShareButton>
+            <RedditShareButton url={url} title={title}>
+              <RedditIcon size={32} />
+            </RedditShareButton>
+            <TelegramShareButton url={url} title={title}>
+              <TelegramIcon size={32} />
+            </TelegramShareButton>
+            <WhatsappShareButton url={url} title={title} separator=":: ">
+              <WhatsappIcon size={32} />
+            </WhatsappShareButton>
+            <LinkedinShareButton url={url}>
+              <LinkedinIcon size={32} />
+            </LinkedinShareButton>
+            <VKShareButton url={url}>
+              <VKIcon size={32} />
+            </VKShareButton>
+          </Group>
+
+          <Input
+            value={clipboard.copied ? 'share link copied to clipboard' : url}
+            rightSection={
+              <ActionIcon
+                onClick={() => {
+                  clipboard.copy(url);
+                }}
+                color="blue"
+                variant="default"
+              >
+                {clipboard.copied ? <AiOutlineFileDone /> : <RiFileCopyLine />}
+              </ActionIcon>
+            }
+          />
+        </Stack>
       </Modal>
       <ActionIcon onClick={() => setOpened(true)} variant="default" radius={0} size="lg">
         <RiShareLine />
