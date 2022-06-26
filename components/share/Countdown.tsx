@@ -18,7 +18,6 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: theme.colorScheme === 'light' ? theme.colors.gray[2] : theme.colors.gray[9],
-    borderRadius: '4px',
     width: 'min(100px, calc(100vw / 4 - 22px))',
     overflow: 'hidden',
   },

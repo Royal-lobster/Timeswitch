@@ -10,6 +10,8 @@ import {
   TelegramShareButton,
   TwitterIcon,
   TwitterShareButton,
+  VKIcon,
+  VKShareButton,
   WhatsappIcon,
   WhatsappShareButton,
 } from 'next-share';
@@ -36,12 +38,13 @@ const ShareToSocials = ({ title }: ShareToSocialsProps) => {
     <>
       <Modal
         size="xs"
+        radius={0}
         centered
         opened={opened}
         onClose={() => setOpened(false)}
         title="Share Event"
       >
-        <Group>
+        <Group spacing={9}>
           <TwitterShareButton url={url} title={title}>
             <TwitterIcon size={32} />
           </TwitterShareButton>
@@ -60,9 +63,12 @@ const ShareToSocials = ({ title }: ShareToSocialsProps) => {
           <LinkedinShareButton url={url}>
             <LinkedinIcon size={32} />
           </LinkedinShareButton>
+          <VKShareButton url={url}>
+            <VKIcon size={32} />
+          </VKShareButton>
         </Group>
       </Modal>
-      <ActionIcon onClick={() => setOpened(true)} variant="default" size="lg">
+      <ActionIcon onClick={() => setOpened(true)} variant="default" radius={0} size="lg">
         <RiShareLine />
       </ActionIcon>
     </>

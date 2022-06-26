@@ -40,6 +40,7 @@ const SaveToCalendar = ({ event }: SaveToCalendarProps) => {
   return (
     <>
       <Modal
+        radius={0}
         size="xs"
         centered
         opened={opened}
@@ -49,6 +50,7 @@ const SaveToCalendar = ({ event }: SaveToCalendarProps) => {
         <Stack>
           {calendarProviders(event).map((provider) => (
             <Button
+              radius={0}
               leftIcon={provider.icon}
               onClick={() => {
                 window.open(provider.link, '_blank');
@@ -60,7 +62,7 @@ const SaveToCalendar = ({ event }: SaveToCalendarProps) => {
         </Stack>
       </Modal>
 
-      <Button leftIcon={<RiCalendar2Line />} onClick={() => setOpened((o) => !o)}>
+      <Button leftIcon={<RiCalendar2Line />} radius={0} onClick={() => setOpened((o) => !o)}>
         Save to calendar
       </Button>
     </>

@@ -48,7 +48,6 @@ const useStyles = createStyles((theme) => ({
   description: {
     padding: '20px',
     backgroundColor: theme.colorScheme === 'light' ? theme.colors.gray[1] : theme.colors.gray[9],
-    borderRadius: '4px',
   },
   startsOnDateTime: {
     fontWeight: 'bold',
