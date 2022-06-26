@@ -44,6 +44,10 @@ const useStyles = createStyles((theme) => ({
   FormSubmitBtn: {
     maxWidth: 'fit-content',
   },
+  label: {
+    fontWeight: 500,
+    color: theme.colorScheme === 'dark' ? '#C1C2C5' : '#212529',
+  },
 }));
 
 interface CreateFormProps {
@@ -199,7 +203,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
               minRows={8}
             />
             <Stack spacing={2} sx={{ maxWidth: '500px' }}>
-              <Text>Color Scheme</Text>
+              <Text className={classes.label}>Color Scheme</Text>
               <Group mt={3} spacing={10}>
                 {swatches}
               </Group>
