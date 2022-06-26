@@ -44,10 +44,15 @@ const useStyles = createStyles((theme) => ({
     textDecorationColor: theme.colors[theme.primaryColor][7],
     textDecorationStyle: 'solid',
     textUnderlineOffset: '3px',
+
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+      textAlign: 'center',
+    },
   },
   description: {
     padding: '20px',
     backgroundColor: theme.colorScheme === 'light' ? theme.colors.gray[1] : theme.colors.gray[9],
+    wordBreak: 'break-word',
   },
   startsOnDateTime: {
     fontWeight: 'bold',
@@ -57,6 +62,14 @@ const useStyles = createStyles((theme) => ({
     textDecorationStyle: 'solid',
     textUnderlineOffset: '3px',
     padding: '0px 5px',
+  },
+  saveAndShareBtns: {
+    marginTop: '15px',
+
+    [`@media (max-width: ${theme.breakpoints.md}px)`]: {
+      justifyContent: 'center',
+      marginBottom: '15px',
+    },
   },
 }));
 
@@ -123,6 +136,16 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
             </span>{' '}
             in your local timezone
           </Text>
+          <Group className={classes.saveAndShareBtns}>
+            <SaveToCalendar
+              event={{
+                title: data.title,
+                description: data.description,
+                start: viewerDateTime,
+              }}
+            />
+            <ShareToSocials title={data.title} />
+          </Group>
         </Stack>
         <Stack sx={{ flex: 1 }}>
           <Countdown
@@ -131,16 +154,6 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
           />
           <TimezonesList timezones={data.timezones} creatorDateTime={creatorDateTime} />
         </Stack>
-      </Group>
-      <Group mt={15}>
-        <SaveToCalendar
-          event={{
-            title: data.title,
-            description: data.description,
-            start: viewerDateTime,
-          }}
-        />
-        <ShareToSocials title={data.title} />
       </Group>
     </Box>
   );
