@@ -61,14 +61,13 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
 
   const form = useForm({
     initialValues: {
-      title: 'Robert Birthday 🎉',
-      description:
-        'Duis exercitation cupidatat aliquip reprehenderit officia consectetur ea pariatur reprehenderit minim consequat eu. Nulla non aliquip eu enim sit enim Lorem mollit eu enim aliquip eiusmod minim labore. Amet officia in sunt eu duis anim veniam officia esse id amet nisi. Tempor eu magna eiusmod fugiat. Adipisicing dolore ullamco tempor commodo veniam. Eiusmod voluptate exercitation ipsum in. Sunt exercitation deserunt tempor labore sunt nulla ullamco officia ut cillum qui sit mollit elit. Sit tempor exercitation mollit culpa. Exercitation velit exercitation nulla in anim quis duis tempor aute labore dolore nulla deserunt elit sit. Labore aliquip in duis irure ad quis aliquip do fugiat.',
+      title: '',
+      description: '',
       isRecurring: false,
       recurringFrequency: '',
-      date: new Date('Wed Jun 30 2022 00:00:00 GMT+0530 (India Standard Time)'),
-      time: new Date('Sun Jun 19 2022 00:00:00 GMT+0530 (India Standard Time)'),
-      timezones: ['Asia/Kolkata', 'Asia/Bangkok', 'America/New_York', 'Europe/London'],
+      date: null,
+      time: null,
+      timezones: [],
     },
     validate: {
       title: (value) => (value ? null : 'Title is required'),
@@ -214,6 +213,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
           {...form.getInputProps('timezones')}
           data={tzData}
           label="Select Timezones"
+          placeholder="Select Timezones for display"
           description="Time converted to these timezones will be present on share page along with user's time zone"
           size="md"
           radius={0}
