@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AppProps } from 'next/app';
 import { getCookie, setCookies } from 'cookies-next';
 import Head from 'next/head';
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import { MantineProvider, ColorScheme, ColorSchemeProvider, useMantineTheme } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import Layout from '../components/layout';
 import '@fontsource/pacifico';
@@ -18,6 +18,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
   const [primaryColor, setPrimaryColor] = useState<string>('green');
+  const theme = useMantineTheme();
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
@@ -35,6 +36,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           name="description"
           content="Create and share events and countdowns on internet with ease."
         />
+        <link rel="shortcut icon" href="/favicon.svg" />
 
         {/* <!-- Facebook Meta Tags --> */}
         <meta property="og:url" content="https://timeswitch.vercel.app/" />
@@ -77,6 +79,14 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
+
+      <style jsx global>
+        {`
+          .favicon {
+            fill: ${theme.colors[primaryColor][6]};
+          }
+        `}
+      </style>
     </>
   );
 }
