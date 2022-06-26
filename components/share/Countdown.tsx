@@ -1,4 +1,5 @@
 import { Box, createStyles, Group, Stack, Text, Title } from '@mantine/core';
+import dayjs from 'dayjs';
 import React, { useEffect } from 'react';
 import useCountdown from '../../hooks/useCountdown';
 import Confetti from './Confetti';
@@ -47,13 +48,18 @@ export function Countdown({ dateTime, setTriggerReCalCreatorTime }: CountdownPro
   const [triggerConfetti, setTriggerConfetti] = React.useState(false);
 
   useEffect(() => {
-    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+    if (days + hours + minutes + seconds === 0) {
       setTimeout(() => {
         setTriggerReCalCreatorTime((p) => !p);
       }, 1000);
-      setTriggerConfetti((p) => !p);
     }
   }, [days, hours, minutes, seconds, setTriggerReCalCreatorTime]);
+
+  useEffect(() => {
+    if (dayjs(dateTime).diff(dayjs(), 'second') <= 0) {
+      setTriggerConfetti(true);
+    }
+  }, [days, hours, minutes, seconds, setTriggerConfetti]);
 
   return (
     <>
