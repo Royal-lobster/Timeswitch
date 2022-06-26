@@ -28,9 +28,34 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   return (
     <>
       <Head>
-        <title>TimeSwitch</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        <link rel="shortcut icon" href="/favicon.svg" />
+        {/* <!-- HTML Meta Tags --> */}
+        <title>TimeSwitch</title>
+        <meta
+          name="description"
+          content="Create and share events and countdowns on internet with ease."
+        />
+
+        {/* <!-- Facebook Meta Tags --> */}
+        <meta property="og:url" content="https://timeswitch.vercel.app/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="TimeSwitch" />
+        <meta
+          property="og:description"
+          content="Create and share events and countdowns on internet with ease."
+        />
+        <meta property="og:image" content="https://i.imgur.com/SqXjcMB.png" />
+
+        {/* <!-- Twitter Meta Tags --> */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="twitter:domain" content="timeswitch.vercel.app" />
+        <meta property="twitter:url" content="https://timeswitch.vercel.app/" />
+        <meta name="twitter:title" content="TimeSwitch" />
+        <meta
+          name="twitter:description"
+          content="Create and share events and countdowns on internet with ease."
+        />
+        <meta name="twitter:image" content="https://i.imgur.com/SqXjcMB.png" />
       </Head>
 
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
