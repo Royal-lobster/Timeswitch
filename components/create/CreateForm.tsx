@@ -159,10 +159,10 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
   if (!isMounted) return null;
 
   const disablePastDates = (displayedDate: Date) => {
-    const now = new Date()
-    const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    return displayedDate < currentDate
-  }
+    const now = new Date();
+    const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return displayedDate < currentDate;
+  };
 
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
@@ -188,7 +188,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
             {form.values.isRecurring && (
               <Select
                 {...form.getInputProps('recurringFrequency')}
-                data={['Every Day', 'Alternate Days', 'Every Weak', 'Every Month', 'Every Year']}
+                data={['Every Day', 'Alternate Days', 'Every Week', 'Every Month', 'Every Year']}
                 label="Recurring Frequency"
                 placeholder="Select Frequency"
                 size="md"
