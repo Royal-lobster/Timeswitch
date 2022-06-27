@@ -158,6 +158,12 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
   }, []);
   if (!isMounted) return null;
 
+  const disablePastDates = (displayedDate: Date) => {
+    const now = new Date()
+    const currentDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    return displayedDate < currentDate
+  }
+
   return (
     <form onSubmit={form.onSubmit(handleFormSubmit)}>
       <Stack className={classes.FormContainer}>
@@ -177,6 +183,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
               placeholder="Select Date"
               size="md"
               radius={0}
+              excludeDate={disablePastDates}
             />
             {form.values.isRecurring && (
               <Select
