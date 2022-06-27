@@ -23,7 +23,6 @@ interface ShareData {
   description: string;
   date: string;
   time: string;
-  creatorTimezone: string;
   timezones: string[];
   primaryColor: string;
   isRecurring?: boolean;
@@ -103,8 +102,7 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
     if (data.isRecurring) {
       date = adjustDateForRecurring(date, time, data.recurringFrequency) || date;
     }
-
-    return dayjs.tz(`${date} ${time}`, data.creatorTimezone);
+    return dayjs(`${date} ${time}`);
   }, [data, triggerReCalCreatorTime]);
 
   const viewerDateTime = useMemo(() => {
@@ -114,6 +112,12 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
   }, [creatorDateTime]);
 
   const isStackMode = useMemo(() => data.timezones && data.description.length < 120, [data]);
+
+  const [isMounted, setIsMounted] = React.useState(false);
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) return null;
 
   return (
     <Box>

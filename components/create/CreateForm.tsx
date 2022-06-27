@@ -87,7 +87,6 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
     const data = {
       ...values,
       primaryColor: theme.primaryColor,
-      creatorTimezone: dayjs.tz.guess().replace('Calcutta', 'Kolkata'),
     };
 
     const dataString = JSON.stringify(data);
