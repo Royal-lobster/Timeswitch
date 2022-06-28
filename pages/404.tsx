@@ -1,53 +1,62 @@
-import { Box, Button, createStyles, Text, Title } from '@mantine/core';
-import { useRouter } from 'next/router';
 import React from 'react';
+import { createStyles, Title, Text, Button, Container, Group } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
-  NotFoundContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: '10vh',
-    padding: '80px',
+  root: {
+    paddingTop: 80,
+    paddingBottom: 80,
   },
+
+  label: {
+    textAlign: 'center',
+    fontWeight: 900,
+    fontSize: 220,
+    lineHeight: 1,
+    marginBottom: theme.spacing.xl * 1.5,
+    color: theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2],
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 120,
+    },
+  },
+
   title: {
-    fontSize: 'min(100px, 15vw)',
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
     textAlign: 'center',
+    fontWeight: 900,
+    fontSize: 38,
+
+    [theme.fn.smallerThan('sm')]: {
+      fontSize: 32,
+    },
   },
-  titleSpan: {
-    fontFamily: 'pacifico',
-    color: theme.colors[theme.primaryColor][5],
-    fontSize: 'min(100px, 12vw)',
-  },
-  message: {
-    fontSize: 'min(30px, 5vw)',
-    textAlign: 'center',
-  },
-  homeButton: {
-    marginTop: '20px',
+
+  description: {
+    maxWidth: 500,
+    margin: 'auto',
+    marginTop: theme.spacing.xl,
+    marginBottom: theme.spacing.xl * 1.5,
   },
 }));
-const NotFound = () => {
-  const { classes } = useStyles();
-  const router = useRouter();
-  return (
-    <Box className={classes.NotFoundContainer}>
-      <Title order={1} className={classes.title}>
-        404 <span className={classes.titleSpan}>Not Found</span>
-      </Title>
-      <Text className={classes.message}>Lost in the woods? </Text>
-      <Button
-        onClick={() => {
-          router.push('/');
-        }}
-        size="lg"
-        className={classes.homeButton}
-      >
-        Go to Home
-      </Button>
-    </Box>
-  );
-};
 
-export default NotFound;
+function NotFoundTitle() {
+  const { classes } = useStyles();
+
+  return (
+    <Container className={classes.root}>
+      <div className={classes.label}>404</div>
+      <Title className={classes.title}>You have found a secret place.</Title>
+      <Text color="dimmed" size="lg" align="center" className={classes.description}>
+        Unfortunately, this is only a 404 page. You may have mistyped the address, or the page has
+        been moved to another URL.
+      </Text>
+      <Group position="center">
+        <Button variant="subtle" size="md">
+          Take me back to home page
+        </Button>
+      </Group>
+    </Container>
+  );
+}
+
+export default NotFoundTitle;
