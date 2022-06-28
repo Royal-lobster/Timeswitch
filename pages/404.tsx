@@ -51,7 +51,7 @@ function NotFoundTitle() {
         been moved to another URL.
       </Text>
       <Group position="center">
-        <Button variant="subtle" size="md">
+        <Button component="a" href="/" variant="subtle" size="md">
           Take me back to home page
         </Button>
       </Group>
