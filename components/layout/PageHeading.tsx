@@ -31,7 +31,7 @@ const PageHeading = ({ title }: pageHeadingProps) => {
       <Link href="/" passHref>
         <Group className={classes.pageHeading}>
           <ThemeIcon size="xl">
-            <RiTimer2Line />
+            <RiTimer2Line size={25} />
           </ThemeIcon>
           <Title>
             TimeSwitch <span className={classes.pageHeadingSpan}>{title}</span>
