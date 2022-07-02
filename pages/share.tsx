@@ -13,6 +13,7 @@ import TimezonesList from '../components/share/TimezonesList';
 import { adjustDateForRecurring } from '../utils/adjustDateForRecurring';
 import SaveToCalendar from '../components/share/SaveToCalendar';
 import ShareToSocials from '../components/share/ShareToSocials';
+import ShareSEO from '../seo/ShareSEO';
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
@@ -117,53 +118,72 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
   React.useEffect(() => {
     setIsMounted(true);
   }, []);
-  if (!isMounted) return null;
+  if (!isMounted) {
+    return (
+      <ShareSEO
+        title={data.title}
+        description={data.description}
+        time={creatorDateTime.toString()}
+        timezones={data.timezones}
+        primaryColor={theme.colors[data.primaryColor][5]}
+      />
+    );
+  }
 
   return (
-    <Box>
-      <PageHeading title="View" />
-      <Group
-        align="start"
-        className={classes.alignmentLayout}
-        sx={{
-          flexDirection: isStackMode ? 'column' : 'row',
-          maxWidth: isStackMode ? '700px' : 'unset',
-        }}
-      >
-        <Stack sx={{ flex: 1, width: '100%' }}>
-          <Title className={classes.title}>{data.title}</Title>
-          <Text className={classes.description}>{linkedDescription}</Text>
-          <Text>
-            Event starts on
-            <span className={classes.startsOnDateTime}>
-              {dayjs.tz(creatorDateTime, dayjs.tz.guess()).format('DD MMM YYYY')}
-            </span>{' '}
-            at{' '}
-            <span className={classes.startsOnDateTime}>
-              {dayjs.tz(creatorDateTime, dayjs.tz.guess()).format('hh:mm A')}
-            </span>{' '}
-            in your local timezone
-          </Text>
-          <Group className={classes.saveAndShareBtns}>
-            <SaveToCalendar
-              event={{
-                title: data.title,
-                description: data.description,
-                start: viewerDateTime,
-              }}
+    <>
+      <ShareSEO
+        title={data.title}
+        description={data.description}
+        time={creatorDateTime.toString()}
+        timezones={data.timezones}
+        primaryColor={theme.colors[data.primaryColor][5]}
+      />
+      <Box>
+        <PageHeading title="View" />
+        <Group
+          align="start"
+          className={classes.alignmentLayout}
+          sx={{
+            flexDirection: isStackMode ? 'column' : 'row',
+            maxWidth: isStackMode ? '700px' : 'unset',
+          }}
+        >
+          <Stack sx={{ flex: 1, width: '100%' }}>
+            <Title className={classes.title}>{data.title}</Title>
+            <Text className={classes.description}>{linkedDescription}</Text>
+            <Text>
+              Event starts on
+              <span className={classes.startsOnDateTime}>
+                {dayjs.tz(creatorDateTime, dayjs.tz.guess()).format('DD MMM YYYY')}
+              </span>{' '}
+              at{' '}
+              <span className={classes.startsOnDateTime}>
+                {dayjs.tz(creatorDateTime, dayjs.tz.guess()).format('hh:mm A')}
+              </span>{' '}
+              in your local timezone
+            </Text>
+            <Group className={classes.saveAndShareBtns}>
+              <SaveToCalendar
+                event={{
+                  title: data.title,
+                  description: data.description,
+                  start: viewerDateTime,
+                }}
+              />
+              <ShareToSocials title={data.title} />
+            </Group>
+          </Stack>
+          <Stack sx={{ flex: 1 }}>
+            <Countdown
+              dateTime={viewerDateTime}
+              setTriggerReCalCreatorTime={setTriggerReCalCreatorTime}
             />
-            <ShareToSocials title={data.title} />
-          </Group>
-        </Stack>
-        <Stack sx={{ flex: 1 }}>
-          <Countdown
-            dateTime={viewerDateTime}
-            setTriggerReCalCreatorTime={setTriggerReCalCreatorTime}
-          />
-          <TimezonesList timezones={data.timezones} creatorDateTime={creatorDateTime} />
-        </Stack>
-      </Group>
-    </Box>
+            <TimezonesList timezones={data.timezones} creatorDateTime={creatorDateTime} />
+          </Stack>
+        </Group>
+      </Box>
+    </>
   );
 };
 

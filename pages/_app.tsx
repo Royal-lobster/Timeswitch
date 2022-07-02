@@ -2,12 +2,13 @@ import { GetServerSidePropsContext } from 'next';
 import { useState } from 'react';
 import { AppProps } from 'next/app';
 import { getCookie, setCookies } from 'cookies-next';
-import Head from 'next/head';
 import '../styles/global.css';
 import { MantineProvider, ColorScheme, ColorSchemeProvider, useMantineTheme } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
 import Layout from '../components/layout';
 import '@fontsource/pacifico';
+import { Theme } from '../utils/Theme';
+import { TimeSwitchDefaultSeo } from '../seo/Default';
 
 declare module '@mantine/core' {
   export interface MantineThemeOther {
@@ -29,47 +30,10 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
 
   return (
     <>
-      <Head>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        {/* <!-- HTML Meta Tags --> */}
-        <title>TimeSwitch</title>
-        <meta
-          name="description"
-          content="Create and share events and countdowns on internet with ease."
-        />
-        <link rel="shortcut icon" href="/favicon.svg" />
-
-        {/* <!-- Facebook Meta Tags --> */}
-        <meta property="og:url" content="https://timeswitch.vercel.app/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="TimeSwitch" />
-        <meta
-          property="og:description"
-          content="Create and share events and countdowns on internet with ease."
-        />
-        <meta property="og:image" content="https://i.imgur.com/SqXjcMB.png" />
-
-        {/* <!-- Twitter Meta Tags --> */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta property="twitter:domain" content="timeswitch.vercel.app" />
-        <meta property="twitter:url" content="https://timeswitch.vercel.app/" />
-        <meta name="twitter:title" content="TimeSwitch" />
-        <meta
-          name="twitter:description"
-          content="Create and share events and countdowns on internet with ease."
-        />
-        <meta name="twitter:image" content="https://i.imgur.com/SqXjcMB.png" />
-      </Head>
-
+      <TimeSwitchDefaultSeo />
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider
-          theme={{
-            primaryColor,
-            colorScheme,
-            other: {
-              appMaxWidth: '1000px',
-            },
-          }}
+          theme={{ ...Theme, primaryColor, colorScheme }}
           withGlobalStyles
           withNormalizeCSS
         >
