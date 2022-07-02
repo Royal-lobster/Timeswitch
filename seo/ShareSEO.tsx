@@ -19,12 +19,11 @@ const ShareSEO = ({ title, description, time, timezones, primaryColor }: ShareSE
       site_name: 'TimeSwitch',
       images: [
         {
-          url: `/api/og-image?title=${encodeURI(title)}&time=${encodeURI(
-            time
-          )}&timezones=${encodeURI(timezones.join(','))}&primaryColor=${primaryColor.replace(
-            '#',
-            ''
-          )}`,
+          url: `https://timeswitch.vercel.app/api/og-image?title=${encodeURI(
+            title
+          )}&time=${encodeURI(time)}&timezones=${encodeURI(
+            timezones.join(',')
+          )}&primaryColor=${primaryColor.replace('#', '')}`,
         },
       ],
     }}
