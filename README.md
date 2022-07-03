@@ -8,7 +8,7 @@ A Webapp to share recurring or non recurring events translated to user's local t
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs) [![CodeFactor](https://www.codefactor.io/repository/github/royal-lobster/timeswitch/badge)](https://www.codefactor.io/repository/github/royal-lobster/timeswitch)
 
 ## Screenshots
-![App Screenshot](https://raw.githubusercontent.com/Royal-lobster/covercons/main/timeswitch.png)
+![App Screenshot](https://raw.githubusercontent.com/Royal-lobster/timeswitch/main/preview.png)
 
   
 ## Installation
