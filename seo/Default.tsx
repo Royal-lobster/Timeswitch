@@ -9,7 +9,7 @@ export const TimeSwitchDefaultSeo = () => (
       type: 'website',
       url: 'https://timeswitch.vercel.app/',
       site_name: 'TimeSwitch',
-      images: [{ url: 'https://i.imgur.com/SqXjcMB.png' }],
+      images: [{ url: 'https://i.imgur.com/0UVC6qu.png' }],
     }}
   />
 );
