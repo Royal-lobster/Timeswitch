@@ -165,6 +165,7 @@ export default withOGImage<'query', keyof typeof QueryParams>({
       );
     },
   },
+  cacheControl: 'max-age 54000, must-revalidate',
   dev: {
     inspectHtml: false,
   },
