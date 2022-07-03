@@ -87,7 +87,9 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
   const [triggerReCalCreatorTime, setTriggerReCalCreatorTime] = React.useState(false);
 
   const data = useMemo(() => {
-    const decodedData = decode(encodedData as string);
+    const encoded = encodedData as string;
+    const patchedEncodedData = encoded.replace(/\s/g, '+');
+    const decodedData = decode(patchedEncodedData.replace(' ', '+') as string);
     const parsedData = JSON.parse(decodedData) as ShareData;
     if (parsedData.primaryColor && Object.keys(theme.colors).includes(parsedData.primaryColor)) {
       setPrimaryColor(parsedData.primaryColor);
