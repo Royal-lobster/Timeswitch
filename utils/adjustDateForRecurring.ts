@@ -1,4 +1,5 @@
 import dayjs, { ManipulateType } from 'dayjs';
+import { RecurringFrequency } from '../types';
 
 export const adjustDateForRecurring = (
   date: string,
@@ -21,22 +22,22 @@ export const adjustDateForRecurring = (
     const todayEventDateTime = dayjs(`${todayDate} ${time}`);
 
     switch (recurringFrequency) {
-      case 'Every Day':
+      case RecurringFrequency.EveryDay:
         if (dayjs().isAfter(eventDateTime)) {
           return todayEventDateTime.add(1, 'day').format('YYYY-MM-DD');
         }
         return todayEventDateTime.format('YYYY-MM-DD');
 
-      case 'Alternate Days':
+      case RecurringFrequency.AlternateDays:
         return findNextOccurrence('day', 2);
 
-      case 'Every Week':
+      case RecurringFrequency.EveryWeek:
         return findNextOccurrence('week');
 
-      case 'Every Month':
+      case RecurringFrequency.EveryMonth:
         return findNextOccurrence('month');
 
-      case 'Every Year':
+      case RecurringFrequency.EveryYear:
         return findNextOccurrence('year');
 
       default:

@@ -14,21 +14,11 @@ import { adjustDateForRecurring } from '../utils/adjustDateForRecurring';
 import SaveToCalendar from '../components/share/SaveToCalendar';
 import ShareToSocials from '../components/share/ShareToSocials';
 import ShareSEO from '../seo/ShareSEO';
+import { ShareData } from '../types';
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
-
-interface ShareData {
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  timezones: string[];
-  primaryColor: string;
-  isRecurring?: boolean;
-  recurringFrequency?: 'Every Day' | 'Alternate Days' | 'Every Weak' | 'Every Month' | 'Every Year';
-}
 
 const useStyles = createStyles((theme) => ({
   alignmentLayout: {
