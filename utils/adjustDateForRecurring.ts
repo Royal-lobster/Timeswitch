@@ -22,14 +22,15 @@ export const adjustDateForRecurring = (
 
     switch (recurringFrequency) {
       case 'Every Day':
-        if (dayjs().isAfter(eventDateTime))
+        if (dayjs().isAfter(eventDateTime)) {
           return todayEventDateTime.add(1, 'day').format('YYYY-MM-DD');
-        else return todayEventDateTime.format('YYYY-MM-DD');
+        }
+        return todayEventDateTime.format('YYYY-MM-DD');
 
       case 'Alternate Days':
         return findNextOccurrence('day', 2);
 
-      case 'Every Weak':
+      case 'Every Week':
         return findNextOccurrence('week');
 
       case 'Every Month':
@@ -42,4 +43,6 @@ export const adjustDateForRecurring = (
         return date;
     }
   }
+
+  return date;
 };

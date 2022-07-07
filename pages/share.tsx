@@ -103,7 +103,7 @@ const Share = ({ setPrimaryColor }: SharePageProps) => {
     let date = dayjs(data.date).format('YYYY-MM-DD');
     const time = dayjs(data.time).format('HH:mm');
     if (data.isRecurring) {
-      date = adjustDateForRecurring(date, time, data.recurringFrequency) || date;
+      date = adjustDateForRecurring(date, time, data.recurringFrequency);
     }
     return dayjs(`${date} ${time}`);
   }, [data, triggerReCalCreatorTime]);
