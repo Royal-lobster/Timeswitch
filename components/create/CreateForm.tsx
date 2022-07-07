@@ -25,6 +25,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import { TimezoneItem, TimezoneValue, tzData } from './TimezoneSelect';
+import { RecurringFrequency } from '../../types';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -188,7 +189,7 @@ const CreateForm = ({ setPrimaryColor }: CreateFormProps) => {
             {form.values.isRecurring && (
               <Select
                 {...form.getInputProps('recurringFrequency')}
-                data={['Every Day', 'Alternate Days', 'Every Week', 'Every Month', 'Every Year']}
+                data={Object.values(RecurringFrequency)}
                 label="Recurring Frequency"
                 placeholder="Select Frequency"
                 size="md"
