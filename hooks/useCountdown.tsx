@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useCountdown = (date: string | number | Date) => {
   const [timerDays, setTimerDays] = useState(0);
